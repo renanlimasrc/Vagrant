@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+Vagrant.configure("2") do |config|
+    
+  config.vm.define "ubuntu" do |ubuntu|
+    config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+    end
+      ubuntu.vm.box = "ubuntu/jammy64"
+      ubuntu.vm.network "public_network",  ip: "192.168.1.230", bridge: "enp4s6"
+      ubuntu.vm.provision "shell", inline: "sudo apt update && sudo apt upgrade -y && sudo apt install vim -y"
+  end
+end
+
+Vagrant.configure("2") do |config|
+    
+  config.vm.define "debian11" do |debian11|
+    config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+    end
+      debian11.vm.box = "generic/debian11"
+      debian11.vm.network "public_network",  ip: "192.168.1.231", bridge: "enp4s6"
+      debian11.vm.provision "shell", inline: "sudo apt update && sudo apt upgrade -y && sudo apt install vim -y"
+  end
+end
+
+Vagrant.configure("2") do |config|
+    
+  config.vm.define "rockylinux" do |rockylinux|
+    config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+    end
+      rockylinux.vm.box = "generic/rocky8"
+      rockylinux.vm.network "public_network",  ip: "192.168.1.232", bridge: "enp4s6"
+      rockylinux.vm.provision "shell", inline: "sudo dnf update -y && sudo dnf upgrade -y && sudo dnf install vim"
+  end
+end
+
+
+
+
+
